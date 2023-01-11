@@ -19,16 +19,16 @@ class Tree {
     } 
 
     findPath(node = this.root, end, count = 0, array = []) {
-        if (node === null) {
-            return null
-        }
-        if (JSON.stringify(node.data) === JSON.stringify(end)) {
-            console.log(array)
-            return array
-        } else {
-            array.push(node.data)
-            for (let i = 0; i < 8; i++) {
-                return this.findPath(node[i], end, count + 1, array)
+        if (node != null) {
+            if (JSON.stringify(node.data) === JSON.stringify(end)) {
+                array.push(node.data)
+                return `You made it in ${count} moves! here is your path! ${array}`
+            } else {
+                for (let i = 0; i < 8; i++) {
+                    let subArray = array.map((x) => x)
+                    subArray.push(node.data)
+                    this.findPath(node[i], end, count + 1, subArray)
+                }
             }
         }
         
@@ -47,8 +47,7 @@ class Tree {
         }
         let node = array.shift()
         if (JSON.stringify(node.data) === JSON.stringify(this.end)) {
-            let result = this.findPath(this.root, this.end)
-            return result
+            return this.findPath(this.root, this.end) 
             // return height and carry out function to print route
         }
         node[0] = new Node([(node.data[0] + 1), (node.data[1] + 2)]) /*arg1 array +1 to 0 and +2 to 1*/
