@@ -18,28 +18,23 @@ class Tree {
         this.end = arg2
     } 
 
-    findPath(node = this.root, end, count = 0, array = []) {
-        if (node != null) {
-            if (JSON.stringify(node.data) === JSON.stringify(end)) {
-                array.push(node.data)
-                return `You made it in ${count} moves! here is your path! ${array}`
-            } else {
-                for (let i = 0; i < 8; i++) {
-                    let subArray = array.map((x) => x)
-                    subArray.push(node.data)
-                    this.findPath(node[i], end, count + 1, subArray)
-                }
+    findPath(node = this.root, end, array = []) {
+        if (node === null) {
+            return false
+        }
+        if (JSON.stringify(node.data) === JSON.stringify(end)) {
+            array.push(node.data)
+            return `You made it in ${array.length} moves! Here's your path ${array}`
+        }
+        let subArray = array.map(x => (x))
+        subArray.push(node.data)
+        for (let i = 0; i < 8; i++) {
+            let result = this.findPath(node[i], end, subArray)
+            if (result) {
+                return result
             }
         }
-        
-        // tree has already been created
-        /* 
-        use recursion to create arrays
-        if node === target -> add to array and return
-        else -> for 8 (if node[i] != null call) -> call func again 
-        and add node[i] to array
-        */
-    }
+    } 
 
     travail(array = [this.root]) {
         if (array.length === 0) {
@@ -70,7 +65,7 @@ class Tree {
             }
             /* repeat for 8 times, including all options*/
         }
-        this.travail(array)
+        return this.travail(array)
     }
 }
 
@@ -79,4 +74,4 @@ function knightMoves(start, end) {
     console.log(knight.travail())
 }
 
-knightMoves([0, 0], [0, 8])
+knightMoves([0, 0], [7, 3])
