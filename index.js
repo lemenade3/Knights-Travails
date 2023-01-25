@@ -24,7 +24,7 @@ class Tree {
         }
         if (JSON.stringify(node.data) === JSON.stringify(end)) {
             array.push(node.data)
-            return `You made it in ${array.length} moves! Here's your path ${array}`
+            return `You made it in ${array.length} moves! Here's your path: \n${array.join('\r\n')}`
         }
         let subArray = array.map(x => (x))
         subArray.push(node.data)
@@ -34,7 +34,7 @@ class Tree {
                 return result
             }
         }
-    } 
+    }
 
     travail(array = [this.root]) {
         if (array.length === 0) {
@@ -74,4 +74,4 @@ function knightMoves(start, end) {
     console.log(knight.travail())
 }
 
-knightMoves([0, 0], [7, 3])
+knightMoves([0, 0], [0, 1])
